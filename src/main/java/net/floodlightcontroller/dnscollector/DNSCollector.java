@@ -118,6 +118,7 @@ public class DNSCollector implements IOFMessageListener, IFloodlightModule, IDNS
 						for(int i = 0; i < dataPkt.getData().length; i++) {
 							strBuilder.append((char)arr[i]);
 						}
+						strBuilder.delete(0, 11);
 						Map<String,Object> hm = new HashMap<String, Object>();
 						hm.put("query", strBuilder.toString());
 						hm.put("mac", eth.getSourceMACAddress().toString());

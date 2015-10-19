@@ -17,7 +17,7 @@ public class DNSCollectorResource extends ServerResource{
 		IDNSCollectorService DNSService = (IDNSCollectorService) getContext().getAttributes().
                 get(IDNSCollectorService.class.getCanonicalName());
 		Gson gson = new Gson();
-		String json = gson.toJson(DNSService.getDNSqueries().toString());
+		String json = gson.toJson(DNSService.getDNSqueries());
 		return json;
 	}
 }
