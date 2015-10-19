@@ -116,7 +116,7 @@ public class DNSCollector implements IOFMessageListener, IFloodlightModule, IDNS
 						byte[] arr = dataPkt.getData();
 						StringBuilder strBuilder = new StringBuilder();
 						for(int i = 0; i < dataPkt.getData().length; i++) {
-							strBuilder.append(arr[i]);
+							strBuilder.append((char)arr[i]);
 						}
 						strBuilder.delete(0, 13);
 						strBuilder.delete(strBuilder.length()-4, strBuilder.length());
