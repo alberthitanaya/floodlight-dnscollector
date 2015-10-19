@@ -119,7 +119,7 @@ public class DNSCollector implements IOFMessageListener, IFloodlightModule, IDNS
 							strBuilder.append((char)arr[i]);
 						}
 						strBuilder.delete(0, 13);
-						strBuilder.delete(strBuilder.length()-4, strBuilder.length());
+						strBuilder.delete(strBuilder.length()-5, strBuilder.length());
 						Map<String,Object> hm = new HashMap<String, Object>();
 						hm.put("query", strBuilder.toString());
 						hm.put("mac", eth.getSourceMACAddress().toString());
