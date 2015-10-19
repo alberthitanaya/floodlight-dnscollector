@@ -116,22 +116,16 @@ public class DNSCollector implements IOFMessageListener, IFloodlightModule, IDNS
 						byte[] arr = dataPkt.getData();
 						StringBuilder strBuilder = new StringBuilder();
 						for(int i = 0; i < dataPkt.getData().length; i++) {
-							strBuilder.append((char)arr[i]);
+							strBuilder.append(arr[i]);
 						}
-						strBuilder.delete(0, 11);
+						strBuilder.delete(0, 13);
+						strBuilder.delete(strBuilder.length()-4, strBuilder.length());
 						Map<String,Object> hm = new HashMap<String, Object>();
 						hm.put("query", strBuilder.toString());
 						hm.put("mac", eth.getSourceMACAddress().toString());
 						hm.put("switch", sw.getId().toString());
 						hm.put("time", System.currentTimeMillis());
 						this.DNSqueries.add(hm);
-						//byte[] serializedData = eth.serialize();
-//						OFPacketOut po = sw.getOFFactory().buildPacketOut()
-//								.setData(serializedData)
-//								.setActions(Collections.singletonList((OFAction) sw.getOFFactory().actions().output(OFPort.FLOOD, 0xffFFffFF)))
-//							    .setInPort(OFPort.CONTROLLER)
-//							    .build();
-//						sw.write(po);
 					} else {
 						break; // NOT A DNS PACKET
 					}
