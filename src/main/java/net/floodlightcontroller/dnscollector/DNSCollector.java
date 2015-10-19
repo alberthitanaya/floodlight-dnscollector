@@ -1,5 +1,6 @@
 package net.floodlightcontroller.dnscollector;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -116,7 +117,12 @@ public class DNSCollector implements IOFMessageListener, IFloodlightModule, IDNS
 						byte[] arr = dataPkt.getData();
 						StringBuilder strBuilder = new StringBuilder();
 						for(int i = 0; i < dataPkt.getData().length; i++) {
-							strBuilder.append((char)arr[i]);
+							if (this.isPrintableChar((char)arr[i])){
+								strBuilder.append((char)arr[i]);
+							} else {
+								strBuilder.append(".");
+							}
+							
 						}
 						strBuilder.delete(0, 13);
 						strBuilder.delete(strBuilder.length()-5, strBuilder.length());
@@ -143,5 +149,13 @@ public class DNSCollector implements IOFMessageListener, IFloodlightModule, IDNS
 		result = (ArrayList<Map<String,Object>>) DNSqueries.clone();
 		DNSqueries.clear();
 		return result;
+	}
+
+	public boolean isPrintableChar( char c ) {
+	    Character.UnicodeBlock block = Character.UnicodeBlock.of( c );
+	    return (!Character.isISOControl(c)) &&
+	            c != KeyEvent.CHAR_UNDEFINED &&
+	            block != null &&
+	            block != Character.UnicodeBlock.SPECIALS;
 	}
 }
